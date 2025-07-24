@@ -16,4 +16,10 @@ const recentpropertiesList = async () => {
   return recentProperties;
 };
 
-export { propertiesList, recentpropertiesList };
+const propertyDetails = async (id) => {
+  await connectDB();
+  const propertyDetail = await Property.findById(id).lean();
+  return propertyDetail;
+};
+
+export { propertiesList, recentpropertiesList, propertyDetails };
