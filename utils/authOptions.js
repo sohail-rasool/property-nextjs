@@ -1,5 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import connectDB from "@/config/database";
+import User from "@/models/userModel";
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -19,23 +21,31 @@ export const authOptions = {
   ],
   callbacks: {
     //Invoked on successfull sign in
-    async signIn({ account, profile }) {
+    async signIn({ profile }) {
       // 1. Connect to the database
+      await connectDB();
       // 2. Check if user exists
+      const userExists = await User.findOne({ email: profile.email });
       // 3. if not, create user
-      // 4. Return true to allow sign in
-      if (account.provider === "google") {
-        return profile.email_verified && profile.email.endsWith("@example.com");
+      if (!userExists) {
+        // Truncate username if too long
+         await User.create({
+          email: profile.email,
+          username: (profile.name || "User").slice(0, 20),
+          image: profile.picture,
+        });
       }
+      // 4. Return true to allow sign in
       return true; // Do different verification for other providers that don't have `email_verified`
     },
     // Session callback function that modifies the session object
-    async session({ session, user, token }) {
+    async session({ session }) {
       // 1. Get user from database
+      const user = await User.findOne({ email: session.user.email });
       // 2. Assign user id from the session
+      session.user.id = user._id.toString();
       // return session
       return session;
     },
   },
 };
-

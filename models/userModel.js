@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import { Schema, model, models } from 'mongoose';
 
 // Define the User Schema
 const userSchema = new Schema({
@@ -8,9 +7,9 @@ const userSchema = new Schema({
     required: [true, "Email is required"],
     unique: [true, "Email alrady exists"],
   },
-  userName: {
+   username: {
     type: String,
-    required: [true, "Username is required"],
+    required: true,
   },
   image: {
     type: String,
@@ -21,9 +20,11 @@ const userSchema = new Schema({
       ref: "Property",
     },
   ],
+},{
+  timestamps:true
 });
 
 // Create a Mongoose Model from the Schema
-const User = mongoose.model("User", userSchema);
+const User = models.User || model('User', userSchema);
 
 export default User;
