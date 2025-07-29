@@ -1,6 +1,6 @@
 import PropertyHeaderImage from "@/components/PropertyHeaderImage";
 import PropertyDetails from "@/components/PropertyDetails";
-// import PropertyImages from "@/components/PropertyImages";
+import PropertyImages from "@/components/PropertyImages";
 // import BookmarkButton from "@/components/BookmarkButton";
 // import ShareButtons from "@/components/ShareButtons";
 // import PropertyContactForm from "@/components/PropertyContactForm";
@@ -14,7 +14,7 @@ const PagePropertyID = async ({ params }) => {
   return (
     <>
       <PropertyHeaderImage
-        image={`/images/properties/${property?.images[0]}`}
+        image={property?.images[0]}
       />
       <section>
         <div className="container m-auto py-6 px-6">
@@ -40,7 +40,7 @@ const PagePropertyID = async ({ params }) => {
           </div>
         </div>
       </section>
-      {/* <PropertyImages images={property.images} /> */}
+      <PropertyImages images={property.images} />
     </>
   );
 };

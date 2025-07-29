@@ -2,6 +2,7 @@ import "@/assets/styles/global.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import AuthProvider from "@/components/AuthProvider";
+import 'photoswipe/dist/photoswipe.css';
 
 export const metadata = {
   title: "PropertyPulse",
