@@ -3,6 +3,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import AuthProvider from "@/components/AuthProvider";
 import 'photoswipe/dist/photoswipe.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: "PropertyPulse",
@@ -18,6 +20,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <ToastContainer />
         </body>
       </html>
     </AuthProvider>
